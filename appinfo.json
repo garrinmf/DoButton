@@ -1,0 +1,45 @@
+{
+  "uuid": "253215e1-be38-cc18-0080-3c9be5a64e5b",
+  "shortName": "DoButton",
+  "longName": "DoButton",
+  "companyName": "The Hub Media",
+  "versionCode": 1,
+  "versionLabel": "0.1",
+  "capabilities": [
+    "configurable"
+  ],
+  "watchapp": {
+    "watchface": false
+  },
+  "appKeys": {},
+  "resources": {
+    "media": [
+      {
+        "menuIcon": true,
+        "type": "png",
+        "name": "IMAGE_MENU_ICON",
+        "file": "images/menu_icon.png"
+      },
+      {
+        "type": "png",
+        "name": "IMAGE_LOGO_SPLASH",
+        "file": "images/logo_splash.png"
+      },
+      {
+        "type": "png",
+        "name": "IMAGE_TILE_SPLASH",
+        "file": "images/tile_splash.png"
+      },
+      {
+        "type": "font",
+        "name": "MONO_FONT_14",
+        "file": "fonts/UbuntuMono-Regular.ttf"
+      }
+    ]
+  },
+  "targetPlatforms": [
+    "aplite",
+    "basalt"
+  ],
+  "sdkVersion": "3"
+}
