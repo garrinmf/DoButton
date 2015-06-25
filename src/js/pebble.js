@@ -28,13 +28,13 @@ $(function() {
     });
   }
 
-  $('#submit').click(function() {
+  $('#submit').tap(function() {
     var data = {
       key: "",
       events: []
     };
 
-    data.key = $('input[name="secret_key"').val();
+    data.key = $('input[name="secret_key"]').val();
 
     $.each($('#events').children(), function(idx, child) {
       var name = $(child).find('input[name="name"]').val(),
@@ -43,28 +43,28 @@ $(function() {
       if (name !== undefined && name !== null && name !== "" && event !== undefined && event !== null && event !== "" ) {
         data.events.push({
           name: name,
-          event, event
+          event: event
         })
       }
     });
 
-    document.href = 'pebblejs://close#data=' + encodeURIComponent(JSON.stringify(data));
+    location.href = 'pebblejs://close#data=' + encodeURIComponent(JSON.stringify(data));
   });
 
-  $('#cancel').click(function() {
-    document.href = 'pebblejs://close';
+  $('#cancel').tap(function() {
+    location.href = 'pebblejs://close';
   });
 
-  $('.remove').click(RemoveHandler);
+  $('.remove').tap(RemoveHandler);
 
 
-  $('#add_more').click(function() {
+  $('#add_more').tap(function() {
     var events = $('#events'),
       count = events.children().length;
 
     var htmlString = $(newDiv);
 
-    htmlString.find('.remove').click(RemoveHandler);
+    htmlString.find('.remove').tap(RemoveHandler);
     events.append(htmlString);
   });
 });
