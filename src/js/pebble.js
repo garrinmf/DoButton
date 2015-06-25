@@ -48,11 +48,11 @@ $(function() {
       }
     });
 
-    document.location = 'pebblejs://close#data=' + encodeURIComponent(JSON.stringify(data));
+    document.href = 'pebblejs://close#data=' + encodeURIComponent(JSON.stringify(data));
   });
 
   $('#cancel').click(function() {
-    document.location = 'pebblejs://close';
+    document.href = 'pebblejs://close';
   });
 
   $('.remove').click(RemoveHandler);
