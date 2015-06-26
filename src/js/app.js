@@ -2,7 +2,7 @@ var data = window.localStorage.getItem('data') ? JSON.parse(window.localStorage.
 
 Pebble.addEventListener('showConfiguration', function() {
   console.log('show config');
-  Pebble.openURL('http://garrinmf.github.io/DoButton/do_configuration.html?data=' + encodeURIComponent(JSON.stringify(data)));
+  Pebble.openURL('http://garrinmf.github.io/DoButton/do_configuration_v2.html?data=' + encodeURIComponent(JSON.stringify(data)));
 });
 
 Pebble.addEventListener('webviewclosed', function(e) {
@@ -39,12 +39,21 @@ function setupMain() {
 
     main.on('select', function(e) {
       var name = data.events[e.itemIndex].name,
-          event = data.events[e.itemIndex].event;
+          event = data.events[e.itemIndex].event,
+          values = data.events[e.itemIndex].values || [],
+          props = {};
+
+      for(var i = 0; i < values.length; i++) {
+        props[values[i].name] = values[i].value;
+      }
 
       console.log('Selected item #' + e.itemIndex + ' of section #' + e.sectionIndex);
 
       var req = new XMLHttpRequest();
-      req.open('GET', 'https://maker.ifttt.com/trigger/'+ event +'/with/key/' + data.key);
+      req.open('POST', 'https://maker.ifttt.com/trigger/'+ event +'/with/key/' + data.key);
+      req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+      req.send(JSON.stringify(props));
+
       req.onload = function(e) {
         console.log("Status: " + JSON.stringify(req));
         if (req.status == 200) {
