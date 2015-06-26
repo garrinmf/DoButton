@@ -1,5 +1,5 @@
 $(function() {
-  var newValue = '<div class="value"><div class="column">Name:Value<br /><input type="text" name="value_name" />:<input type="text" name="value_value" /></div></div>';
+  var newValue = '<div class="value"><div class="column">Name:Value<br /><input type="text" name="value_name" disabled/>:<input type="text" name="value_value" /></div></div>';
   var newDiv = '<div id="event1" class="event table">' +
                 '<div class="row"><div class="column">Name:</div><div class="column"><input type="text" name="name" /></div></div>' +
                 '<div class="row"><div class="column">Event:</div><div class="column"><input type="text" name="event" /></div></div>' +
@@ -22,8 +22,13 @@ $(function() {
   }
 
   function addValueHandler() {
-    var $this = $(this);
-    $this.closest('.event').find('.values').append($(newValue));
+    var $this = $(this),
+        $values = $this.closest('.event').find('.values');
+    if ($values.children().length < 3) {
+      var $newValue = $(newValue);
+      $newValue.find('input[name="value_name"]').val('value' + ($values.children().length + 1));
+      $values.append($newValue);
+    }
   }
 
   var data = getURLVariable('data');
