@@ -16,8 +16,10 @@
     </section>
 
     <section class="main-content">
+      <h3>Requirements</h3>
+      DoButton requires an account with IFTTT (ifttt.com).  Once signed up it requires that you have the Maker Channel connected and at least one other Channel that is considered a DO Channel.  You can find your Secret Key on the Maker Channel page. When setting up Recipes using the Maker Channel you will have to pick an Event Name. That is what is entered below as the 'Event'.  The 'Name' below is what is used in the listing of events you can trigger.
       <h3>IFTTT Secret Key</h3>
-      Key: <input type="text" name="secret_key" />
+      Secret Key: <input type="text" name="secret_key" />
       <h3>Events</h3>
       <div id="events">
       </div>
@@ -27,7 +29,11 @@
       <br />
       <button id="submit">Submit</button>
       <button id="cancel">Cancel</button>
+      <br />
+      <br />
+      <div style="font-size: small; color: red;">* The Maker Channel will return success even if the Event Name is entered incorrectly.</div>
     </section>
+
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
