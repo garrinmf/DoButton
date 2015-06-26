@@ -6,54 +6,83 @@ Pebble.addEventListener('showConfiguration', function() {
 });
 
 Pebble.addEventListener('webviewclosed', function(e) {
-  console.log('close config');
-  if (e.response) {
-    var options = JSON.parse(decodeURIComponent(e.response));
-    data = options.data;
-    window.localStorage.setItem('data', data);
-    data = JSON.parse(data);
-  }
+  data = JSON.parse(decodeURIComponent(e.response));
+  console.log('Configuration window returned: ', JSON.stringify(data));
+  window.localStorage.setItem('data', JSON.stringify(data))
+  setupMain();
 });
 
 var UI = require('ui'),
   main;
 
-if(data.key != undefined && data.events.length > 0) {
-  var config = {
-    sections: [{
-      items: []
-    }]
-  };
+setupMain();
 
-  for(var i = 0; i < data.events.length; i++){
-    config.sections[0].items.push({
-      title: data.events[i].name
-    });
+function setupMain() {
+  if (main !== undefined) {
+    main.hide();
   }
 
-  main = new UI.Menu(config);
-
-  main.on('select', function(e) {
-    console.log('Selected item #' + e.itemIndex + ' of section #' + e.sectionIndex);
-    console.log('The item is titled "' + e.item.title + '"');
-    var req = new XMLHttpRequest();
-    req.open('GET', 'https://maker.ifttt.com/trigger/'+data.events[e.itemIndex].event+'/with/key/' + key);
-    req.onload = function(e) {
-      console.log("Status: " + req.status);
+  if(data.key != undefined && data.events.length > 0) {
+    var config = {
+      sections: [{
+        items: []
+      }]
     };
 
-    req.send(null);
-  });
+    for(var i = 0; i < data.events.length; i++){
+      config.sections[0].items.push({
+        title: data.events[i].name
+      });
+    }
 
-  main.show();
-}
-else {
-  main = new UI.Card({
-    title: 'Pebble.js',
-    icon: 'images/menu_icon.png',
-    subtitle: 'Hello World!',
-    body: 'Press any button.'
-  });
+    main = new UI.Menu(config);
 
-  main.show();
+    main.on('select', function(e) {
+      var name = data.events[e.itemIndex].name,
+          event = data.events[e.itemIndex].event;
+
+      console.log('Selected item #' + e.itemIndex + ' of section #' + e.sectionIndex);
+
+      var req = new XMLHttpRequest();
+      req.open('GET', 'https://maker.ifttt.com/trigger/'+ event +'/with/key/' + data.key);
+      req.onload = function(e) {
+        console.log("Status: " + JSON.stringify(req));
+        if (req.status == 200) {
+          var tmpCard = new UI.Card({
+            title: name,
+            body: "Success!"
+          });
+          tmpCard.show();
+          setTimeout(function() {
+            tmpCard.hide();
+          }, 3000);
+        }
+
+        if (req.status != 200) {
+          var tmpCard = new UI.Card({
+            title: name,
+            body: "Failed!: " + req.status
+          });
+          tmpCard.show();
+          setTimeout(function() {
+            tmpCard.hide();
+          }, 3000);
+        }
+      };
+
+      req.send(null);
+    });
+
+    main.show();
+  }
+  else {
+    main = new UI.Card({
+      title: 'Pebble.js',
+      icon: 'images/menu_icon.png',
+      subtitle: 'Hello World!',
+      body: 'Press any button.'
+    });
+
+    main.show();
+  }
 }
