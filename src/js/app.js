@@ -77,10 +77,9 @@ function setupMain() {
   }
   else {
     main = new UI.Card({
-      title: 'Pebble.js',
+      title: 'DoButton',
       icon: 'images/menu_icon.png',
-      subtitle: 'Hello World!',
-      body: 'Press any button.'
+      body: 'Please setup Maker Channel Information in Settings.'
     });
 
     main.show();
