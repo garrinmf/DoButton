@@ -48,7 +48,7 @@ $(function() {
       }
     });
 
-    location.href = 'pebblejs://close#data=' + encodeURIComponent(JSON.stringify(data));
+    location.href = 'pebblejs://close#' + encodeURIComponent(JSON.stringify(data));
   });
 
   $('#cancel').tap(function() {
