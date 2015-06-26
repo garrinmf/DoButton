@@ -41,18 +41,17 @@ function setupMain() {
       var name = data.events[e.itemIndex].name,
           event = data.events[e.itemIndex].event,
           values = data.events[e.itemIndex].values || [],
-          props = {};
+          props = "?";
 
       for(var i = 0; i < values.length; i++) {
-        props[values[i].name] = values[i].value;
+        props += values[i].name '=' + encodeURIComponent(values[i].value) + "&";
       }
 
       console.log('Selected item #' + e.itemIndex + ' of section #' + e.sectionIndex);
+      console.log('payload:' + props);
 
       var req = new XMLHttpRequest();
-      req.open('POST', 'https://maker.ifttt.com/trigger/'+ event +'/with/key/' + data.key);
-      req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-      req.send(JSON.stringify(props));
+      req.open('POST', 'https://maker.ifttt.com/trigger/'+ event +'/with/key/' + data.key + props);
 
       req.onload = function(e) {
         console.log("Status: " + JSON.stringify(req));
