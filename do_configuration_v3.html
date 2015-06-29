@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>ThisButton by The Hub Media</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">ThisButton</h1>
+      <h2 class="project-tagline">ifTtt DO Button for Pebble</h2>
+    </section>
+
+    <section class="main-content">
+      <h3>Requirements</h3>
+      ThisButton requires an account with IFTTT (ifttt.com).  Once signed up it requires that you have the Maker Channel connected and at least one other Channel that is considered a DO Channel.  You can find your Secret Key on the Maker Channel page. When setting up Recipes using the Maker Channel you will have to pick an Event Name. That is what is entered below as the 'Event'.  The 'Name' below is what is used in the listing of events you can trigger.  Any Values added to each event will be passed along with the firing of the event.
+      <h3>IFTTT Secret Key</h3>
+      Secret Key: <input type="text" name="secret_key" />
+      <h3>Events</h3>
+      <div id="events">
+      </div>
+      <br />
+      <button id="add_more">Add Another Event</button>
+      <br />
+      <br />
+      <h3>Pre Canned Data</h3>
+      <div id="datasets">
+      </div>
+      <br />
+      <button id="add_dataset">Add Data Set</button>
+      <h5>* If the Name is left blank for a DataSet Value, the value itself will be used in the picker display.
+      <br />
+      <br />
+      <button id="submit">Submit</button>
+      <button id="cancel">Cancel</button>
+      <br />
+      <br />
+      <div style="font-size: small; color: red;">* The Maker Channel will return success even if the Event Name is entered incorrectly.</div>
+      <div style="font-size: small; color: red;">* To remove Events or Event Values, leave them empty and they will be cleared.</div>
+    </section>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
+    <script type="text/javascript" src="./src/js/pebble_v3.js"></script>
+    <script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+try {
+  var pageTracker = _gat._getTracker("UA-64534500-2");
+  pageTracker._trackPageview();
+} catch(err) {}
+    </script>
+
+  </body>
+</html>
+
