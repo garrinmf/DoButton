@@ -4,7 +4,7 @@
   "longName": "ThisButton",
   "companyName": "The Hub Media",
   "versionCode": 1,
-  "versionLabel": "0.4.1",
+  "versionLabel": "0.5",
   "capabilities": [
     "configurable"
   ],
