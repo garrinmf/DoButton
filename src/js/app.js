@@ -38,7 +38,7 @@ function setupMain() {
       console.log('payload:' + props);
 
       var req = new XMLHttpRequest();
-      req.open('POST', 'https://maker.ifttt.com/trigger/' + event + '/with/key/' + data.key + props);
+      req.open('POST', 'https://maker.ifttt.com/trigger/' + encodeURIComponent(event) + '/with/key/' + data.key + props);
 
       req.onload = function(e) {
         console.log("Status: " + JSON.stringify(req));
@@ -54,9 +54,13 @@ function setupMain() {
         }
 
         if (req.status != 200) {
+          var message = "";
+          if (req.status === 401) {
+            message = "  Unauthorized.  Please check Secret Key.";
+          }
           tmpCard = new UI.Card({
             title: name,
-            body: "Failed!: " + req.status
+            body: "Failed!: " + req.status + message
           });
           tmpCard.show();
           setTimeout(function() {
