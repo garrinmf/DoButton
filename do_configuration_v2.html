@@ -17,7 +17,7 @@
 
     <section class="main-content">
       <h3>Requirements</h3>
-      ThisButton requires an account with IFTTT (ifttt.com).  Once signed up it requires that you have the Maker Channel connected and at least one other Channel that is considered a DO Channel.  You can find your Secret Key on the Maker Channel page. When setting up Recipes using the Maker Channel you will have to pick an Event Name. That is what is entered below as the 'Event'.  The 'Name' below is what is used in the listing of events you can trigger.  Any Values added to each event will be passed along with the firing of the event.
+      ThisButton requires an account with IFTTT (ifttt.com).  Once signed up it requires that you have the Maker Channel connected and at least one other Channel that is considered a DO Channel.  You can find your Secret Key on the Maker Channel page. When setting up Recipes using the Maker Channel you will have to pick an Event Name. That is what is entered below as the 'Event'.  The 'Name' below is what is used in the listing of events you can trigger.  Any Values added to each event will be passed along with the firing of the event. See examples at bottom for how to send location information.
       <h3>IFTTT Secret Key</h3>
       Secret Key: <input type="text" name="secret_key" />
       <h3>Events</h3>
@@ -33,6 +33,36 @@
       <br />
       <div style="font-size: small; color: red;">* The Maker Channel will return success even if the Event Name is entered incorrectly.</div>
       <div style="font-size: small; color: red;">* To remove Events or Event Values, leave them empty and they will be cleared.</div>
+      <br />
+      <br />
+      <h3>Location Variables</h3>
+      ThisButton has the ability to send the current location as one of the data items that the Maker Channel supports (requires v0.6).  The format that ThisButton uses for inserting these variables into the Event Property values is curly braces {variablename}. The following is a list of supported variables regarding location that can be inserted.
+      <table style="border: none;">
+        <tr>
+          <td>location </td><td>Inserts lat, lon e.g. "37.4403921,-122.1586715"</td>
+        </tr>
+        <tr>
+          <td>location.timestamp</td><td>Inserts the timestamp the location was captured on the device (Outdated data may be used)</td>
+        </tr>
+        <tr>
+          <td>location.latitude</td><td>Inserts the latitude e.g. "37.4403921"</td>
+        </tr>
+        <tr>
+          <td>location.longitude</td><td>Inserts the longitude e.g. "-122.1586715"</td>
+        </tr>
+        <tr>
+          <td>location.altitude </td><td>Inserts the altitude in meters "e.g. 19.55"</td>
+        </tr>
+        <tr>
+          <td>location.speed    </td><td>Inserts the speed (if available) in meters per second</td>
+        </tr>
+        <tr>
+          <td>location.heading  </td><td>Inserts the heading (if applicable) in degrees 0-359</td>
+        </tr>
+      </table>
+      <h3>Examples</h3>
+      <input type=text readonly value="{location}"> will result in: 37.4403921, -122.1586715
+      <input type=text readonly style="width: 600px" value="I am at {location} heading {location.heading} at {location.speed} m/s."> will result in: I am at 37.4403921, -122.1586715 heading 350 at 15.6464 m/s.
     </section>
 
 
