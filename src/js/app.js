@@ -1,7 +1,7 @@
 /*jslint browser: true, white: true*/
 /*global Pebble*/
 var UI = require('ui'),
-    main, i,
+    main, i, $e,
     tmpCard, lastCard,
     data = window.localStorage.getItem('data') ? JSON.parse(window.localStorage.getItem('data')) : {events: []};
 
@@ -38,12 +38,16 @@ function setupMain() {
           values = data.events[e.itemIndex].values || [];
 
       console.log('Selected item #' + e.itemIndex + ' of section #' + e.sectionIndex);
-
+      $e = e;
+      main.item(e.sectionIndex, e.itemIndex, {
+          subtitle: 'Triggering'
+      });
+      
       tmpCard = new UI.Card({
         title: 'Triggering',
         body: name
       });
-      tmpCard.show();
+      //tmpCard.show();
 
       checkVariables(name, event, values, triggerEvent);
     });
@@ -70,13 +74,14 @@ function checkVariables(name, event, values, callback) {
     var dateTime = new Date(pos.timestamp);
 
     for (i = 0; i < values.length; i++) {
-      values[i].calcValue = values[i].value.replace(/\{location\}/, pos.coords.latitude + ", " + pos.coords.longitude);
-      values[i].calcValue = values[i].calcValue.replace(/\{location\.timestamp\}/, dateTime.toString());
-      values[i].calcValue = values[i].calcValue.replace(/\{location\.latitude\}/, pos.coords.latitude);
-      values[i].calcValue = values[i].calcValue.replace(/\{location\.longitude\}/, pos.coords.longitude);
-      values[i].calcValue = values[i].calcValue.replace(/\{location\.altitude\}/, pos.coords.altitude);
-      values[i].calcValue = values[i].calcValue.replace(/\{location\.speed\}/, pos.coords.speed || "unknown");
-      values[i].calcValue = values[i].calcValue.replace(/\{location\.heading\}/, pos.coords.heading || "unknown");
+      values[i].calcValue = values[i].value
+        .replace(/\{location\}/, pos.coords.latitude + ", " + pos.coords.longitude)
+        .replace(/\{location\.timestamp\}/, dateTime.toString())
+        .replace(/\{location\.latitude\}/, pos.coords.latitude)
+        .replace(/\{location\.longitude\}/, pos.coords.longitude)
+        .replace(/\{location\.altitude\}/, pos.coords.altitude)
+        .replace(/\{location\.speed\}/, pos.coords.speed || "unknown")
+        .replace(/\{location\.heading\}/, pos.coords.heading || "unknown");
     }
 
     fillPropVariables(name, event, values, callback);
@@ -128,6 +133,9 @@ function triggerEvent(name, event, props) {
       tmpCard = new UI.Card({
         title: name,
         body: "Success!"
+      });
+      main.item($e.sectionIndex, $e.itemIndex, {
+          subtitle: ''
       });
       tmpCard.show();
       lastCard.hide();
